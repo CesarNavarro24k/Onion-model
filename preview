@@ -1,0 +1,27 @@
+ws = 0.5
+jx = 1
+jy = 0 
+jz = 0
+B = 1.0
+L = 3
+est = tensor(basis(2,1),basis(2,0),basis(2,0),basis(2,0))
+rho_est = est*est.dag()
+Hs = ws*tensor(sigmaz(),qeye(2))
+sx1 = tensor(sigmax(),qeye(2))
+sx2 = tensor(qeye(2),sigmax())
+sz2 = tensor(qeye(2),sigmaz())
+Sx2 = tensor(qeye(2),qeye(2),sigmax())
+Sx3 = tensor(qeye(2),qeye(2),qeye(2),sigmax())
+#print(Sx3)
+Hse = J*(tensor(sx1,sx2 )) #revisar
+Jt = jx + jy + jz
+Paulit = sigmax() + sigmay() + sigmaz()
+Zt = tensor(sigmax() + sigmay() + sigmaz(),qeye(2))
+Zt2 = tensor(qeye(2), sigmax() + sigmay() + sigmaz())
+Zents = tensor(sigmaz(),sigmaz(),sigmaz(),sigmaz()) + tensor(sigmaz(),sigmaz(),sigmaz(),sigmaz()) +tensor(sigmaz(),sigmaz(),sigmaz(),sigmaz() )
+He = Jt*(tensor(Zt,Zt2) )  + B*Zents#revisar
+
+#Htot = Hs + Hse + He
+rho_se = rho_s*rho_s.dag()
+tlist = np.linspace(0,10,100)
+ec1 = mesolve(Hse, rho_est,tlist )
